@@ -4,10 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -15,11 +11,13 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfigurator {
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/**").permitAll().anyRequest().authenticated());
-
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		http.authorizeHttpRequests(authorizeconfig -> {
+			authorizeconfig.requestMatchers("/despesa").permitAll();
+			authorizeconfig.anyRequest().authenticated();
+		})
+		.cors(cors -> cors.disable())
+		.csrf(csrf -> csrf.disable());
 		return http.build();
 	}
 

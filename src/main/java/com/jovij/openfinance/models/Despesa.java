@@ -1,5 +1,6 @@
 package com.jovij.openfinance.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -9,36 +10,42 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
 
+/**
+ * @author jovi
+ * @param id
+ * @param titulo
+ * @param valor
+ * @param dataDaDespesa
+ */
 @Entity
-public class Despesa {
+public class Despesa implements Serializable {
 
-    public Despesa(Long id, String titulo, Float valor, Date dataDaDespesa) {
-        this.id = id;
-        this.titulo = titulo;
-        this.valor = valor;
-        this.dataDaDespesa = dataDaDespesa;
-    }
+	public static final Long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	public Despesa() {
+	}
 
-    @Basic 
-    private String titulo;
+	public Despesa(Long id, String titulo, Float valor, Date dataDaDespesa) {
+		this.id = id;
+		this.titulo = titulo;
+		this.valor = valor;
+		this.dataDaDespesa = dataDaDespesa;
+	}
 
-    @Basic
-    private Float valor;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private Date dataDaDespesa;
-    
-    
+	@Basic
+	private String titulo;
+
+	@Basic
+	private Float valor;
+
+	@Basic
+	@Temporal(TemporalType.DATE)
+	private Date dataDaDespesa;
 
 	@Override
 	public int hashCode() {
@@ -89,8 +96,5 @@ public class Despesa {
 	public void setDataDaDespesa(Date dataDaDespesa) {
 		this.dataDaDespesa = dataDaDespesa;
 	}
-    
-    
-
 
 }

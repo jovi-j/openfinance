@@ -2,9 +2,7 @@ package com.jovij.openfinance.models;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
-import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

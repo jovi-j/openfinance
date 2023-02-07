@@ -16,8 +16,8 @@ public class WebSecurityConfigurator {
 			authorizeconfig.requestMatchers("/despesa").permitAll();
 			authorizeconfig.anyRequest().authenticated();
 		})
-		.cors(cors -> cors.disable())
-		.csrf(csrf -> csrf.disable());
+		.cors().disable()
+		.csrf().disable();
 		return http.build();
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jovij.openfinance.models.Despesa;
@@ -22,8 +23,12 @@ public class DespesaController {
     private DespesaService service;
 	
     @GetMapping
-    ResponseEntity<List<Despesa>> getDespesas(){
-        return service.findAll();
+    ResponseEntity<List<Despesa>> getDespesas(
+                @RequestParam(defaultValue = "0") Integer pageNo,
+                @RequestParam(defaultValue = "10") Integer pageSize,
+                @RequestParam(defaultValue = "id") String sortBy
+    ){
+        return service.findAll(pageNo, pageSize, sortBy);
     }
     
     @PostMapping

@@ -39,8 +39,20 @@ public class DespesaService {
 
     public ResponseEntity<Despesa> deleteByTitulo(String titulo) {
         Despesa despesa = repo.findByTitulo(titulo);
-        if(!despesa.equals(null))
+        if(!despesa.equals(null)){
+            repo.delete(despesa);
             return buildResponse(despesa, HttpStatus.OK);
+        }
+
+        return buildResponse(despesa, HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<Despesa> updateByTitulo(String titulo){
+        Despesa despesa = repo.findByTitulo(titulo);
+        if(!despesa.equals(null)){
+            repo.save(despesa);
+            return buildResponse(despesa, HttpStatus.OK);
+        }
         return buildResponse(despesa, HttpStatus.NOT_FOUND);
     }
 

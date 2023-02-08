@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class DespesaController {
     private DespesaService service;
 	
     @GetMapping
-    ResponseEntity<List<Despesa>> getDespesas(
+    public ResponseEntity<List<Despesa>> getDespesas(
                 @RequestParam(defaultValue = "0") Integer pageNo,
                 @RequestParam(defaultValue = "10") Integer pageSize,
                 @RequestParam(defaultValue = "id") String sortBy
@@ -34,13 +35,18 @@ public class DespesaController {
     }
     
     @PostMapping
-    ResponseEntity<Despesa> createDespesa(@RequestBody Despesa despesa) {
+    public ResponseEntity<Despesa> createDespesa(@RequestBody Despesa despesa) {
     	return service.create(despesa);
     }
 
     @DeleteMapping("/{titulo}")
-    ResponseEntity<Despesa> deleteDespesaByTitulo(@PathVariable("titulo") String titulo){
+    public ResponseEntity<Despesa> deleteDespesaByTitulo(@PathVariable("titulo") String titulo){
     	return service.deleteByTitulo(titulo);
+    }
+
+    @PutMapping("/{titulo}")
+    public ResponseEntity<Despesa> updateDespesaByTitulo(@PathVariable("titulo") String titulo){
+    	return service.updateByTitulo(titulo);
     }
     
     

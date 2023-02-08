@@ -22,7 +22,7 @@ public class DespesaService {
     private DespesaRepository repo;
 
     public ResponseEntity<Despesa> create(Despesa despesa) {
-        return new ResponseEntity<Despesa>(repo.save(despesa), HttpStatus.CREATED);
+        return buildResponse(repo.save(despesa), HttpStatus.CREATED);
     }
 
     @Transactional(readOnly = true)
@@ -31,11 +31,25 @@ public class DespesaService {
         Page<Despesa> pagedResult = repo.findAll(paging);
         
         if(pagedResult.hasContent()){
-            return new ResponseEntity<List<Despesa>>(pagedResult.getContent(), HttpStatus.OK);
+            return buildResponseList(pagedResult.getContent(), HttpStatus.OK);
         }else{
-            return new ResponseEntity<List<Despesa>>(HttpStatus.OK);
+            return buildResponseList(null, HttpStatus.OK);
         }
     }
 
+    public ResponseEntity<Despesa> deleteByTitulo(String titulo) {
+        Despesa despesa = repo.findByTitulo(titulo);
+        if(!despesa.equals(null))
+            return buildResponse(despesa, HttpStatus.OK);
+        return buildResponse(despesa, HttpStatus.NOT_FOUND);
+    }
 
+
+    private ResponseEntity<Despesa> buildResponse(Despesa despesa, HttpStatus httpStatus){
+        return new ResponseEntity<Despesa>(despesa, httpStatus);
+    }
+
+    private ResponseEntity<List<Despesa>> buildResponseList(List<Despesa> list, HttpStatus httpStatus){
+        return new ResponseEntity<List<Despesa>>(list, httpStatus);
+    }
 }

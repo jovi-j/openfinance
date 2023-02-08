@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.jovij.openfinance.models.Despesa;
 
 public interface DespesaRepository extends JpaRepository<Despesa, Long>{
+
+    public Despesa findByTitulo(String titulo);
 	
 }
